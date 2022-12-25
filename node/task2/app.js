@@ -13,5 +13,3 @@ app.use('/api', mainRouter);
 app.listen(PORT, () => {
     console.log(`App listen http:\\localhost:${PORT} port.`);
 });
-
-// test git in vs code #1
