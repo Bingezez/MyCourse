@@ -12,7 +12,7 @@ module.exports = {
 
             res.json(user);
         } catch (e) {
-            res.status(400).send(e.message);
+            res.status(400).json(e.message);
         }
     },
 
@@ -20,9 +20,9 @@ module.exports = {
         try {
         const createdUser = await service.createUser(req.body);
 
-        res.status(201).send(createdUser);
+        res.status(201).json(createdUser);
         } catch (e) {
-            res.status(400).send(e.message);
+            res.status(400).json(e.message);
         }
     },
 
@@ -30,9 +30,9 @@ module.exports = {
         try {
             const updatedUser = await service.updateUserById(req.params.userId, req.body);
 
-            res.status(201).send(updatedUser);
+            res.status(201).json(updatedUser);
         } catch (e) {
-            res.status(400).send(e.message);
+            res.status(400).json(e.message);
         }
     },
 
@@ -40,9 +40,9 @@ module.exports = {
         try {
             const deletedUser = await service.deleteUserById(req.params.userId);
 
-            res.status(201).send(deletedUser);
+            res.status(201).json(deletedUser);
         } catch (e) {
-            res.status(400).send(e.message);
+            res.status(400).json(e.message);
         }
     }
 }
