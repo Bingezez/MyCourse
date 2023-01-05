@@ -10,7 +10,7 @@ userRouter.post('/', controller.createUser);
 
 // By user id (get user, update user, delete user).
 userRouter.get('/:userId', controller.getUserById);
-userRouter.put('/:userId', middleware.checkIsUserExists, controller.updateUserById);
+userRouter.put('/:userId', controller.updateUserById);
 userRouter.delete('/:userId', controller.deleteUserById);
 
 //export user Router.
