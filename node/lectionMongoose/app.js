@@ -7,7 +7,7 @@ const { PORT, URI } = require('./configs/variables');
 
 const app = express();
 
-mongoose.set('debug', true);
+// mongoose.set('debug', true);
 mongoose.set('strictQuery', true);
 mongoose.connect(URI, {
     useNewUrlParser: true,
