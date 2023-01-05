@@ -6,11 +6,9 @@ module.exports = {
         try {
             const users = await service.getAllUsers();
 
-            res.json(users);
+            res.status(200).send(users);
         } catch (e) {
-            res.status(400).json({
-                message: e.message
-            });
+            res.status(400).send(e.message);
         }
     },
 
@@ -18,11 +16,9 @@ module.exports = {
         try {
             const user = await userService.getUserById(req.params.userId);
 
-            res.json(user);
+            res.status(200).send(user);
         } catch (e) {
-            res.status(400).json({
-                message: e.message
-            });
+            res.status(400).send(e.message);
         }
     },
 
@@ -38,9 +34,9 @@ module.exports = {
 
     updateUserById: async (req, res) => {
         try {
-            const updatedUser = await service.updateUserById(req.params.userId, req.body);
+            await service.updateUserById(req.params.userId, req.body);
 
-            res.status(201).send(updatedUser);
+            res.status(201).send('User is update!');
         } catch (e) {
             res.status(400).send(e.message);
         }
@@ -48,9 +44,9 @@ module.exports = {
 
     deleteUserById: async (req, res) => {
         try {
-            const deletedUser = await service.deleteUserById(req.params.userId);
+            await service.deleteUserById(req.params.userId);
 
-            res.status(201).send(deletedUser);
+            res.status(200).send('User is delete!');
         } catch (e) {
             res.status(400).send(e.message);
         }
