@@ -1,5 +1,5 @@
 {
-  "name": "lectionMongoose",
+  "name": "task3",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@types/mongoose": "^5.11.97",
+    "eslint": "^8.31.0",
     "nodemon": "^2.0.20"
   }
 }
