@@ -1,54 +1,55 @@
 const userService = require('./user.service');
 const service = require('./user.service');
+const error = require('../../errors/apiError');
 
 module.exports = {
-    getAllUsers: async (req, res) => {
+    getAllUsers: async (req, res, next) => {
         try {
             const users = await service.getAllUsers();
 
             res.status(200).send(users);
         } catch (e) {
-            res.status(400).send(e.message);
+            next(e);
         }
     },
 
-    getUserById: async (req, res) => {
+    getUserById: async (req, res, next) => {
         try {
             const user = await userService.getUserById(req.params.userId);
 
             res.status(200).send(user);
         } catch (e) {
-            res.status(400).send(e.message);
+            next(e);
         }
     },
 
-    createUser: async (req, res) => {
+    createUser: async (req, res, next) => {
         try {
             await userService.createUser(req.body);
 
             res.status(201).send('User is create!');
         } catch (e) {
-            res.status(400).send(e.message);
+            next(e);
         }
     },
 
-    updateUserById: async (req, res) => {
+    updateUserById: async (req, res, next) => {
         try {
             await service.updateUserById(req.params.userId, req.body);
 
             res.status(201).send('User is update!');
         } catch (e) {
-            res.status(400).send(e.message);
+            next(e);
         }
     },
 
-    deleteUserById: async (req, res) => {
+    deleteUserById: async (req, res, next) => {
         try {
             await service.deleteUserById(req.params.userId);
 
             res.status(200).send('User is delete!');
         } catch (e) {
-            res.status(400).send(e.message);
+            next(e);
         }
     }
 }

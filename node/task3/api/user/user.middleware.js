@@ -1,4 +1,5 @@
 const userService = require('./user.service');
+const error = require('../../errors/apiError');
 
 module.exports = {
     checkIsUserExists: async (req, res, next) => {
@@ -6,7 +7,7 @@ module.exports = {
             const user = await userService.getUserById(req.params.userId);
 
             if (!user) {
-                throw new Error('User is not found');
+                throw new error.ApiError('User is not found', 404);
             }
             
             next();
