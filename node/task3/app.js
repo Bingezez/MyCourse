@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config(); // check more info about .env and .env.prod
+require('dotenv').config(); // check more info about .env and .env.prod (other .env files)
 
 const { mainRouter } = require('./api/api.router');
 const { PORT, URI } = require('./configs/variables');
@@ -12,7 +12,7 @@ const app = express();
 mongoose.set('strictQuery', true);
 mongoose.connect(URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true
 })
 .then(() => {console.log('Connected!')})
 .catch((e) => {console.log(e)});
