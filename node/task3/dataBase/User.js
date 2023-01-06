@@ -12,6 +12,12 @@ const UserScheme = new mongoose.Schema({
             trim: true,
             default: ''
         },
+        username: {
+            type: String,
+            trim: true,
+            required: true,
+            unique: true
+        },
         email: {
             type: String,
             trim: true,
@@ -21,6 +27,10 @@ const UserScheme = new mongoose.Schema({
         },
         age: {
             type: Number
+        },
+        password: {
+            type: String,
+            required: true
         },
         role: {
             type: String,
