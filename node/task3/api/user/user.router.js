@@ -2,7 +2,6 @@ const userRouter = require('express').Router();
 const controller = require('./user.controller');
 const middleware = require('./user.middleware');
 
-
 userRouter.get('/', middleware.checkAllUserExists, controller.getAllUsers); // get all users.
 userRouter.post('/', middleware.checkValidData, middleware.checkIsUserExistsByEmail, controller.createUser); // create new user.
 

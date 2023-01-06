@@ -9,7 +9,7 @@ module.exports = {
             if (!users.length) {
                 throw new error.NotFoundError('We don`t have any user.');
             }
-            
+
             req.users = users;
 
             next();
@@ -25,7 +25,7 @@ module.exports = {
             if (!user) {
                 throw new error.NotFoundError('User is not found.');
             }
-            
+
             req.user = user;
 
             next();
@@ -89,4 +89,4 @@ module.exports = {
             next(e);
         }
     }
-}
+};

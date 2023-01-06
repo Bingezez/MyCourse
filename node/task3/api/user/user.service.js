@@ -23,5 +23,5 @@ module.exports = {
 
     getUsersByEmail: async (userEmail) => {
         return await User.find({"email": userEmail});
-    },
-}
+    }
+};
