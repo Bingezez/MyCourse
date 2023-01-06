@@ -7,7 +7,7 @@ module.exports = {
             const users = await userService.getAllUsers();
 
             if (!users.length) {
-                throw new error.ApiError('We don`t have any user.', 404);
+                throw new error.NotFoundError('We don`t have any user.');
             }
             
             req.users = users;
@@ -23,7 +23,7 @@ module.exports = {
             const user = await userService.getUserById(req.params.userId);
 
             if (!user) {
-                throw new error.ApiError('User is not found.', 404);
+                throw new error.NotFoundError('User is not found.');
             }
             
             req.user = user;
@@ -39,7 +39,7 @@ module.exports = {
             const email = req.body.email;
             const user = await userService.getUsersByEmail(email);
             if (user.length) {
-                throw new error.ApiError('User is found, please try again (Problem in your email).', 400);
+                throw new error.BadRequestError('User is found, please try again (Problem in your email).');
             }
 
             next();
@@ -50,7 +50,40 @@ module.exports = {
 
     checkValidData: async (req, res, next) => {
         try {
-            // if (res.body?.firstName <=  )
+            console.log('hfdjgdf');
+            let count = 0;
+            let problems = '';
+            const {fisrtName, lastName, username, email, age, password} = req.body;
+
+            if (!fisrtName || !lastName || !username || !email || !age || !password) {
+                count++;
+                problems += `${count}. Please, fill all fields.\n`;
+            }
+
+            if (fisrtName.length < 3 || lastName.length < 3 || username.length < 3) {
+                count++;
+                problems += `${count}. Please, fill all fields (Problem in your lastName or firstName or username).\n`;
+            }
+
+            if (age < 0 || age > 100) {
+                count++;
+                problems += `${count}. Please, fill all fields (Problem in your age).\n`;
+            }
+
+            if (password.length < 8) {
+                count++;
+                problems += `${count}. Please, fill all fields (Problem in your password).\n`;
+            }
+
+            if (!email.includes('@')) {
+                count++;
+                problems += `${count}. Please, fill all fields (Problem in your email).\n`;
+            }
+
+            if (count) {
+                throw new error.BadRequestError(problems);
+            }
+
             next();
         } catch (e) {
             next(e);
