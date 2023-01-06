@@ -5,9 +5,7 @@ const error = require('../../errors/apiError');
 module.exports = {
     getAllUsers: async (req, res, next) => {
         try {
-            const users = await service.getAllUsers();
-
-            res.status(200).send(users);
+            res.status(200).send(req.users);
         } catch (e) {
             next(e);
         }
@@ -15,9 +13,7 @@ module.exports = {
 
     getUserById: async (req, res, next) => {
         try {
-            const user = await userService.getUserById(req.params.userId);
-
-            res.status(200).send(user);
+            res.status(200).send(req.user);
         } catch (e) {
             next(e);
         }

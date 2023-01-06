@@ -19,5 +19,9 @@ module.exports = {
 
     deleteUserById: async (userId) => {
         await User.findByIdAndDelete(userId);
-    }
+    },
+
+    getUsersByEmail: async (userEmail) => {
+        return await User.find({"email": userEmail});
+    },
 }
