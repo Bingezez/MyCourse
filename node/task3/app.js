@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config(); // check more info about .env and .env.prod (other .env files)
