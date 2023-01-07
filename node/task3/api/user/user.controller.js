@@ -1,6 +1,5 @@
 const userService = require('./user.service');
 const service = require('./user.service');
-const error = require('../../errors/apiError');
 
 module.exports = {
     getAllUsers: async (req, res, next) => {
