@@ -35,6 +35,7 @@ function _notFoundError(req, res, next) {
     next(new ApiError('Route not found!', 404));
 }
 
+// eslint-disable-next-line
 function mainErrorHandler(err, req, res, next) {
     res
         .status(err.status || 500)
