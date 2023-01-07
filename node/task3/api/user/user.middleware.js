@@ -48,9 +48,22 @@ module.exports = {
         }
     },
 
+    checkIsUserExistsByUsername: async (req, res, next) => {
+        try {
+            const username = req.body.username;
+            const user = await userService.getUsersByUsername(username);
+            if (user.length) {
+                throw new error.BadRequestError('User is found, please try again (Problem in your username).');
+            }
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
     checkValidData: async (req, res, next) => {
         try {
-            console.log('hfdjgdf');
             let count = 0;
             let problems = '';
             const {fisrtName, lastName, username, email, age, password} = req.body;

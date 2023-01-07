@@ -1,13 +1,9 @@
 const User = require('../../dataBase/User');
 
 module.exports = {
-    getAllUsers: async () => {
-        return await User.find();
-    },
+    getAllUsers: async () => await User.find(),
 
-    getUserById: async (userId) => {
-        return await User.findById(userId);
-    },
+    getUserById: async (userId) => await User.findById(userId),
 
     createUser: async (userObject) => {
         await User.create(userObject);
@@ -21,7 +17,8 @@ module.exports = {
         await User.findByIdAndDelete(userId);
     },
 
-    getUsersByEmail: async (userEmail) => {
-        return await User.find({"email": userEmail});
-    }
+    getUsersByEmail: async (userEmail) => await User.find({email: userEmail}),
+
+    // eslint-disable-next-line object-shorthand
+    getUsersByUsername: async (username) => await User.find({username: username})
 };
