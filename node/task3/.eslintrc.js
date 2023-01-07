@@ -103,4 +103,6 @@ module.exports = {
             jest: true,
         },
     }],
+    // eslint-disable-next-line no-console
+    reportUnusedDisableDirectives: true,
 };
