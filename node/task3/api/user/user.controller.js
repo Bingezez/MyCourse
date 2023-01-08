@@ -4,7 +4,7 @@ const service = require('./user.service');
 module.exports = {
     getAllUsers: async (req, res, next) => {
         try {
-            res.status(200).send(req.users);
+            res.send(req.users);
         } catch (e) {
             next(e);
         }
@@ -12,7 +12,7 @@ module.exports = {
 
     getUserById: async (req, res, next) => {
         try {
-            res.status(200).send(req.user);
+            res.send(req.user);
         } catch (e) {
             next(e);
         }
@@ -42,7 +42,7 @@ module.exports = {
         try {
             await service.deleteUserById(req.params.userId);
 
-            res.status(200).send('User is delete!');
+            res.send('User is delete!');
         } catch (e) {
             next(e);
         }
