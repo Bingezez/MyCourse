@@ -85,12 +85,12 @@ module.exports = {
 
             if (password.length < 8) {
                 count++;
-                problems += `${count}. Please, fill all fields (Problem in your password).\n`;
+                problems += `${count}. your password is less than 8 characters.\n`;
             }
 
             if (!email.includes('@')) {
                 count++;
-                problems += `${count}. Please, fill all fields (Problem in your email).\n`;
+                problems += `${count}. Please, enter valid data.\n`;
             }
 
             if (count) {
