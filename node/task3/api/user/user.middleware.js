@@ -34,6 +34,7 @@ module.exports = {
         try {
             const email = req.body.email;
             const user = await userService.getUsersByEmail(email);
+
             if (user.length) {
                 throw new error.BadRequestError('User is found, please try again (Problem in your email).');
             }
@@ -48,6 +49,7 @@ module.exports = {
         try {
             const username = req.body.username;
             const user = await userService.getUsersByUsername(username);
+
             if (user.length) {
                 throw new error.BadRequestError('User is found, please try again (Problem in your username).');
             }
