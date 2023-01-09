@@ -6,10 +6,6 @@ module.exports = {
         try {
             const users = await userService.getAllUsers();
 
-            if (!users.length) {
-                throw new error.NotFoundError('We don`t have any user.');
-            }
-
             req.users = users;
 
             next();
