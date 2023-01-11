@@ -5,18 +5,17 @@ const path = require('path');
 
 require('dotenv').config({
     path: path.join(__dirname, 'env', `.env.${process.env.NODE_ENV || 'local'}`)
-});
-// check more info about .env and .env.prod (other .env files)
+}); // check more info about .env and .env.prod (other .env files)
 
+const {PORT, URL} = require('./configs/variables');
 const {mainRouter} = require('./api/api.router');
-const {PORT, URI} = require('./configs/variables');
 const {ApiError} = require('./errors/apiError');
 
 const app = express();
 
 // mongoose.set('debug', true);
 mongoose.set('strictQuery', true);
-mongoose.connect(URI, {
+mongoose.connect(URL, {
     useNewUrlParser: true, useUnifiedTopology: true
 })
     .then(() => {
