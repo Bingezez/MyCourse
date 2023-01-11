@@ -1,7 +1,12 @@
 /* eslint-disable no-console */
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config(); // check more info about .env and .env.prod (other .env files)
+const path = require('path');
+
+require('dotenv').config({
+    path: path.join(__dirname, 'env', `.env.${process.env.NODE_ENV || 'local'}`)
+});
+// check more info about .env and .env.prod (other .env files)
 
 const {mainRouter} = require('./api/api.router');
 const {PORT, URI} = require('./configs/variables');
@@ -44,3 +49,6 @@ function mainErrorHandler(err, req, res, next) {
             message: err.message || 'Unknown error'
         });
 }
+
+
+// DO TO: create constant for status code.
