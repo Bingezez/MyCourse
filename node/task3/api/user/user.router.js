@@ -4,8 +4,8 @@ const middleware = require('./user.middleware');
 
 userRouter.get('/', middleware.checkAllUserExists, controller.getAllUsers); // get all users.
 
-userRouter.use('/', middleware.checkValidData, middleware.checkIsUserExistsByEmail, middleware.checkIsUserExistsByUsername);
-userRouter.post('/', controller.createUser); // create new user.
+userRouter.use('/', middleware.checkIsUserExistsByEmail, middleware.checkIsUserExistsByUsername);
+userRouter.post('/', middleware.checkValidData, controller.createUser); // create new user.
 
 userRouter.use('/:userId', middleware.checkIsUserExists); // middleware for audit if user is in DB.
 // By user id (get user, update user, delete user).

@@ -17,8 +17,7 @@ module.exports = {
         await User.findByIdAndDelete(userId);
     },
 
-    getUsersByEmail: async (userEmail) => await User.findOne({email: userEmail}),
+    getUsersByEmail: async (email) => await User.findOne({email}),
 
-    // eslint-disable-next-line object-shorthand
-    getUsersByUsername: async (username) => await User.findOne({username: username})
+    getUsersByUsername: async (username) => await User.findOne({username})
 };
