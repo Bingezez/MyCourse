@@ -1,7 +1,17 @@
-const userService = require('./user.service');
+const {CREATED, NO_CONTENT} = require('../../errors/error.codes');
+
 const service = require('./user.service');
+const userService = require('./user.service');
 
 module.exports = {
+    getMyProfile: async (req, res, next) => {
+        try {
+            res.json(req.user);
+        } catch (e) {
+            next(e);
+        }
+    },
+
     getAllUsers: async (req, res, next) => {
         try {
             const users = await service.getAllUsers(req.query);
@@ -14,7 +24,7 @@ module.exports = {
 
     getUserById: async (req, res, next) => {
         try {
-            res.send(req.user);
+            res.send(req.locals.user);
         } catch (e) {
             next(e);
         }
@@ -24,7 +34,7 @@ module.exports = {
         try {
             await userService.createUser(req.body);
 
-            res.status(201).send('User is create!');
+            res.status(CREATED).send('User is create!');
         } catch (e) {
             next(e);
         }
@@ -34,7 +44,7 @@ module.exports = {
         try {
             await service.updateUserById(req.params.userId, req.body);
 
-            res.status(201).send('User is update!');
+            res.status(CREATED).send('User is update!');
         } catch (e) {
             next(e);
         }
@@ -44,7 +54,7 @@ module.exports = {
         try {
             await service.deleteUserById(req.params.userId);
 
-            res.send('User is delete!');
+            res.status(NO_CONTENT).send('User is delete!');
         } catch (e) {
             next(e);
         }

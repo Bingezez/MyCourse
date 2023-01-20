@@ -1,5 +1,6 @@
 const User = require('../../dataBase/User');
 const { buildFilterQuery } = require('./user.util');
+const oauthService = require('../../services/oauth.services');
 
 module.exports = {
     // getAllUsers: async () => await User.find(),
@@ -28,10 +29,10 @@ module.exports = {
         };
     },
 
-    getUserById: async (userId) => await User.findById(userId),
-
     createUser: async (userObject) => {
-        await User.create(userObject);
+        const hashPassword = await oauthService.hashPassword(userObject.password);
+
+        await User.create({ ...userObject, password: hashPassword });
     },
 
     updateUserById: async (userId, user) => {
@@ -44,5 +45,7 @@ module.exports = {
 
     getUsersByEmail: async (email) => await User.findOne({email}),
 
-    getUsersByUsername: async (username) => await User.findOne({username})
+    getUsersByUsername: async (username) => await User.findOne({username}),
+
+    getUsersByParams: async (objectParams) => await User.findOne(objectParams).select('+password')
 };

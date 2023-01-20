@@ -3,15 +3,16 @@ const {NotFoundError, BadRequestError} = require('../../errors/apiError');
 const { userSchema } = require('../user/user.validator');
 
 module.exports = {
-    checkIsUserExists: async (req, res, next) => {
+    getUserDynemically: (paramName, from, dbField = paramName) => async (req, res, next) => {
         try {
-            const user = await userService.getUserById(req.params.userId);
+            // req.from.paramName!
+            const user = await userService.getUsersByParams({[dbField]: req[from][paramName]});
 
             if (!user) {
                 throw new NotFoundError('User is not found!');
             }
 
-            req.user = user;
+            req.locals = {...req.locals, user};
 
             next();
         } catch (e) {
@@ -34,7 +35,7 @@ module.exports = {
             next(e);
         }
     },
-
+    
     checkIsUserExistsByEmail: async (req, res, next) => {
         try {
             const user = await userService.getUsersByEmail(req.body.email);
