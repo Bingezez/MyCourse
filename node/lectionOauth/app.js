@@ -11,6 +11,8 @@ const {PORT, URL} = require('./configs/variables');
 const {mainRouter} = require('./api/api.router');
 const {ApiError} = require('./errors/apiError');
 
+const code = require('./errors/error.codes');
+
 const app = express();
 
 app.use(express.json());
@@ -42,12 +44,12 @@ function _notFoundError(req, res, next) {
 
 // eslint-disable-next-line
 function mainErrorHandler(err, req, res, next) {
+    console.log(err);
     res
-        .status(err.status || 500)
+        .status(err.status || code.SERVER_ERROR)
         .json({
             message: err.message || 'Unknown error'
         });
 }
-
 
 // DO TO: create constant for status code.
