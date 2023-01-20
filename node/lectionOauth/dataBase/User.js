@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const rolesEnum = require('../configs/roles.enum');
 
+const secureFields = [
+    'password',
+    'age'
+];
+
 const UserScheme = new mongoose.Schema({
     firstName: {
         type: String, trim: true, default: ''
@@ -18,7 +23,28 @@ const UserScheme = new mongoose.Schema({
         type: String, enum: Object.values(rolesEnum), default: rolesEnum.USER
     }
 }, {
-    timestamps: true, versionKey: false
+    timestamps: true,
+    versionKey: false,
+    toJSON: {
+        virtuals: true,
+        transform: (doc, ret) => {
+            for (const field of secureFields) {
+                delete ret[field];
+            }
+
+            return ret;
+        }
+    },
+    toObject: {
+        virtuals: true,
+        transform: (doc, ret) => {
+            for (const field of secureFields) {
+                delete ret[field];
+            }
+
+            return ret;
+        }
+    }
 });
 
 module.exports = mongoose.model('User', UserScheme);
