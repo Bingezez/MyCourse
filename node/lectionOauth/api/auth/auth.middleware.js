@@ -12,7 +12,7 @@ module.exports = {
                 throw new UnauthorizedError('No token');
             }
 
-            oauthService.validateAccessToken(tokenType, token);
+            oauthService.validateTokenDynemically(tokenType, token);
 
             const tokenWithuser = await service.getByParams({tokenType: token});
 

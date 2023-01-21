@@ -24,11 +24,7 @@ const generateAccessTokenPair = (encodeData = {}) => {
     };
 };
 
-const validateToken = () => {
-
-};
-
-const validateAccessToken = (tokenType = '', token = '') => {
+const validateTokenDynemically = (tokenType = '', token = '') => {
     try {
         const type = tokenType === 'accessToken' ? ACCESS_TOKEN_SECRET: REFRESH_TOKEN_SECRET;
 
@@ -40,8 +36,7 @@ const validateAccessToken = (tokenType = '', token = '') => {
 
 module.exports = {
     hashPassword,
-    validateToken,
     checkHashPassword,
-    validateAccessToken,
     generateAccessTokenPair,
+    validateTokenDynemically
 };
