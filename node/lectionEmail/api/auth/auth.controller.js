@@ -49,7 +49,7 @@ module.exports = {
         try {
             await service.deleteManyByParams({user: req.user._id});
 
-            res.status(NO_CONTENT).send('Logout');
+            res.status(NO_CONTENT).send('Logout all');
         } catch (e) {
             next(e);
         }
