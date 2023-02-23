@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path');
+const path = require('node:path');
 
 require('dotenv').config({
     path: path.join(__dirname, 'env', `.env.${process.env.NODE_ENV || 'local'}`)
 }); // check more info about .env and .env.prod (other .env files)
+global.rootPath = __dirname;
 
 const {PORT, URL} = require('./configs/variables');
 const {mainRouter} = require('./api/api.router');

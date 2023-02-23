@@ -1,6 +1,6 @@
 const User = require('../../dataBase/User');
 const { buildFilterQuery } = require('./user.util');
-const oauthService = require('../../services/oauth.services');
+const { oauthService } = require('../../services');
 
 module.exports = {
     // getAllUsers: async () => await User.find(),
@@ -47,5 +47,5 @@ module.exports = {
 
     getUsersByUsername: async (username) => await User.findOne({username}),
 
-    getUsersByParams: async (objectParams) => await User.findOne(objectParams).select('+password')
+    getUsersByParams: async (objectParams) => await User.findOne(objectParams)
 };
