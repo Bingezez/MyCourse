@@ -8,7 +8,7 @@ module.exports = {
         try {
             const user = req.locals.user; 
 
-            await emailService.sendMail('072001rusand@gmail.com', BANNED, null);
+            emailService.sendSGMail('072001rusand@gmail.com', BANNED);
             await oauthService.checkHashPassword(user.password, req.body.password);
 
             const tokenPair = oauthService.generateAccessTokenPair({ ...user });

@@ -15,7 +15,7 @@ module.exports = {
                 condition: true
             };
 
-            await emailService.sendMail('072001rusand@gmail.com', WELCOME, emailContext);
+            emailService.sendSGMail('072001rusand@gmail.com', WELCOME, emailContext);
 
             res.json(req.user);
         } catch (e) {
