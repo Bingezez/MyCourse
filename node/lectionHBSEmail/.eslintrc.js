@@ -1,14 +1,19 @@
 module.exports = {
     env: {
-        commonjs: true, es2021: true, node: true
-    }, extends: "eslint:recommended", parserOptions: {
-        ecmaVersion: "latest"
-    }, rules: {
-        'array-bracket-newline': ['error', {minItems: 2},],
-        'array-element-newline': ['error', {minItems: 2},],
+        commonjs: true,
+        es2021: true,
+        node: true,
+    },
+    extends: 'eslint:recommended',
+    parserOptions: {
+        ecmaVersion: 'latest',
+    },
+    rules: {
+        'array-bracket-newline': ['error', { minItems: 2 }],
+        'array-element-newline': ['error', { minItems: 2 }],
         'arrow-body-style': 'error',
         'block-scoped-var': 'error',
-        semi: "error",
+        semi: 'error',
         complexity: 'error',
         'constructor-super': 'error',
         camelcase: 'off',
@@ -20,7 +25,7 @@ module.exports = {
         eqeqeq: 'error',
         'guard-for-in': 'off',
         'global-require': 'off',
-        indent: ['warn', 4, {SwitchCase: 1},],
+        indent: ['warn', 4, { SwitchCase: 1 }],
         'linebreak-style': 'off',
         'max-classes-per-file': 'off',
         'newline-per-chained-call': 'off',
@@ -52,10 +57,16 @@ module.exports = {
         'no-labels': 'error',
         'no-lone-blocks': 'error',
         'no-loop-func': 'error',
-        'max-len': ['error', {
-            ignoreRegExpLiterals: true, ignoreUrls: true, comments: 130, code: 130,
-        },],
-        'no-magic-numbers': ['off', {ignoreArrayIndexes: true},],
+        'max-len': [
+            'error',
+            {
+                ignoreRegExpLiterals: true,
+                ignoreUrls: true,
+                comments: 130,
+                code: 130,
+            },
+        ],
+        'no-magic-numbers': ['off', { ignoreArrayIndexes: true }],
         'no-multi-spaces': 'error',
         'no-multi-str': 'error',
         'no-multiple-empty-lines': 'error',
@@ -75,34 +86,48 @@ module.exports = {
         'no-undef-init': 'error',
         'no-unsafe-finally': 'error',
         'no-unused-expressions': 'error',
-        'no-unused-vars': ['error', {varsIgnorePattern: 'ctx'},],
-        'no-use-before-define': ['error', {functions: false}],
+        'no-unused-vars': ['error', { varsIgnorePattern: 'ctx' }],
+        'no-use-before-define': ['error', { functions: false }],
         'no-useless-call': 'error',
         'no-useless-concat': 'error',
         'no-useless-return': 'error',
         'no-var': 'error',
         'no-void': 'error',
         'object-shorthand': 'error',
-        'one-var': ['error', 'never',],
+        'one-var': ['error', 'never'],
         'padding-line-between-statements': 'error',
         'prefer-const': 'error',
         'prefer-object-spread': 'warn',
-        'quote-props': ['error', 'as-needed',],
+        'quote-props': ['error', 'as-needed'],
         radix: 'error',
-        'sort-imports': ['error', {
-            ignoreCase: true, ignoreDeclarationSort: true, ignoreMemberSort: false,
-        },],
-        'space-before-function-paren': ['error', {
-            anonymous: 'never', asyncArrow: 'always', named: 'never',
-        },],
+        'sort-imports': [
+            'error',
+            {
+                ignoreCase: true,
+                ignoreDeclarationSort: true,
+                ignoreMemberSort: false,
+            },
+        ],
+        'space-before-function-paren': [
+            'error',
+            {
+                anonymous: 'never',
+                asyncArrow: 'always',
+                named: 'never',
+            },
+        ],
         'use-isnan': 'error',
         'wrap-iife': 'error',
         yoda: 'error',
-    }, overrides: [{
-        files: ['**/*.test.js'], env: {
-            jest: true,
+    },
+    overrides: [
+        {
+            files: ['**/*.test.js'],
+            env: {
+                jest: true,
+            },
         },
-    }],
+    ],
     // eslint-disable-next-line no-console
     reportUnusedDisableDirectives: true,
 };

@@ -1,14 +1,14 @@
 const service = require('./auth.service');
 const {oauthService, emailService } = require('../../services');
 const { NO_CONTENT } = require('../../errors/error.codes');
-const { WELCOME } = require('../../configs/emailTypes.enum');
+const { BANNED } = require('../../configs/emailTypes.enum');
 
 module.exports = {
     loginUser: async (req, res, next) => {
         try {
             const user = req.locals.user; 
 
-            await emailService.sendMail('072001rusand@gmail.com', WELCOME, {name: user.firstName});
+            await emailService.sendMail('072001rusand@gmail.com', BANNED, null);
             await oauthService.checkHashPassword(user.password, req.body.password);
 
             const tokenPair = oauthService.generateAccessTokenPair({ ...user });

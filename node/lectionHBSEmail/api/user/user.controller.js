@@ -1,14 +1,21 @@
 const {CREATED, NO_CONTENT} = require('../../errors/error.codes');
-const { BANNED } = require('../../configs/emailTypes.enum');
+const { WELCOME } = require('../../configs/emailTypes.enum');
 const { emailService } = require('../../services');
 
 const service = require('./user.service');
 const userService = require('./user.service');
+const User = require('../../dataBase/User');
 
 module.exports = {
     getMyProfile: async (req, res, next) => {
         try {
-            await emailService.sendMail('072001rusand@gmail.com', BANNED);
+            const emailContext = {
+                name: req.user.firstName,
+                users: await User.find().lean(),
+                condition: true
+            };
+
+            await emailService.sendMail('072001rusand@gmail.com', WELCOME, emailContext);
 
             res.json(req.user);
         } catch (e) {
