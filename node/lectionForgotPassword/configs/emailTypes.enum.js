@@ -1,4 +1,5 @@
 module.exports = {
     WELCOME: 'welcome',
-    BANNED: 'banned'
+    BANNED: 'banned',
+    FORGOT_PASSWORD: 'forgot_password'
 };

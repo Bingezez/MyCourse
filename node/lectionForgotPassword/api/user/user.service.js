@@ -36,7 +36,7 @@ module.exports = {
     },
 
     updateUserById: async (userId, user) => {
-        await User.findByIdAndUpdate(userId, user);
+        await User.findByIdAndUpdate(userId, user, {new: true});
     },
 
     deleteUserById: async (userId) => {

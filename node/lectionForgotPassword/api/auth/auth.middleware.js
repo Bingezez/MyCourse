@@ -1,4 +1,4 @@
-const { UnauthorizedError } = require("../../errors/apiError");
+const { UnauthorizedError, BadRequestError } = require("../../errors/apiError");
 
 const oauthService = require("../../services/oauth.services");
 const service = require("./auth.service");
@@ -21,6 +21,32 @@ module.exports = {
             }
 
             req.user = tokenWithuser._userId;
+
+            next();
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    validateAccessToken: (actionType) => async (req, res, next) => {
+        try {
+            const token = req.get('Authorization');
+
+            if (!token) {
+                throw new UnauthorizedError('No token');
+            }
+
+            await oauthService.validateAccessToken(token);
+            
+            const actionTokenWithUser = await service.findActionTokenByParams({token, actionType});
+
+            if (!actionTokenWithUser) {
+                throw new BadRequestError('Invalid token');
+            }
+
+            req.user = actionTokenWithUser._userId;
+
+            await service.deleteActionTokenByParams({ token });
 
             next();
         } catch (e) {

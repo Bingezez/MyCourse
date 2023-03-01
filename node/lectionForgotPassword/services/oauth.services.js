@@ -1,13 +1,14 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const { BadRequestError, UnauthorizedError } = require('../errors/apiError');
+const { BadRequestError, UnauthorizedError, ServerError } = require('../errors/apiError');
 const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = require('../configs/variables');
+const { FORGOT_PASSWORD, CONFIRM_ACCOUNT } = require('../configs/actionTokenType.enum');
 
-const hashPassword = async (password, saltRound = 10) => bcrypt.hash(password, saltRound);
+const hashPassword = (password) => bcrypt.hash(password, 10);
 
 const checkHashPassword = async (password, hashPassword) => {
-    const isPasswordEquals = bcrypt.compare(password, hashPassword);
+    const isPasswordEquals = await bcrypt.compare(password, hashPassword);
 
     if (!isPasswordEquals.valueOf()) {
         throw new BadRequestError('Email or password is wrong');
@@ -34,9 +35,41 @@ const validateTokenDynemically = (tokenType = '', token = '') => {
     }
 };
 
+const generateActionToken = (actionType, encodeData = {}) => {
+    let expiresIn = '';
+    const secretWord = 'test';
+
+    switch (actionType) {
+        case FORGOT_PASSWORD:
+            expiresIn = '24h';
+            // secretWord = 'test';
+            break;
+
+        case CONFIRM_ACCOUNT:
+            expiresIn = '24h';
+            // secretWord = 'test';
+            break;
+        
+        default:
+            throw new ServerError('Wrong action type');
+    }
+
+    return jwt.sign(encodeData, secretWord, { expiresIn });
+};
+
+const validateAccessToken = (token = '') => {
+    try {
+        return jwt.verify(token, 'test');
+    } catch (e) {
+        throw new BadRequestError(e.message || 'Invalide Token.');
+    }
+};
+
 module.exports = {
     hashPassword,
     checkHashPassword,
+    validateAccessToken,
+    generateActionToken,
     generateAccessTokenPair,
     validateTokenDynemically
 };

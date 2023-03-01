@@ -1,15 +1,21 @@
 const service = require('./auth.service');
+const userService = require('../user/user.service');
+
 const {oauthService, emailService } = require('../../services');
 const { NO_CONTENT } = require('../../errors/error.codes');
-const { BANNED } = require('../../configs/emailTypes.enum');
+const { BANNED, FORGOT_PASSWORD } = require('../../configs/emailTypes.enum');
+const { FRONTEND_URL } = require('../../configs/variables');
+const { FORGOT_PASSWORD: forgotPasswordAction } = require('../../configs/actionTokenType.enum');
 
 module.exports = {
     loginUser: async (req, res, next) => {
         try {
-            const user = req.locals.user; 
+            const user = req.locals.user;
 
-            emailService.sendSGMail('072001rusand@gmail.com', BANNED);
-            await oauthService.checkHashPassword(user.password, req.body.password);
+            emailService.sendMail('072001rusand@gmail.com', BANNED);
+            
+            // transfer password and hashpassword
+            await oauthService.checkHashPassword(req.body.password, user.password);
 
             const tokenPair = oauthService.generateAccessTokenPair({ ...user });
             
@@ -52,6 +58,48 @@ module.exports = {
             await service.deleteManyByParams({user: req.user._id});
 
             res.status(NO_CONTENT).send('Logout all');
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    sendForgotPasswordEmail: async (req, res, next) => {
+        try {
+            const user = req.locals.user; 
+             
+            // Generate action token
+            const forgotePasswordToken = oauthService.generateActionToken(
+                forgotPasswordAction,
+                {email: user.email}
+            );
+
+            // Save action token to DB
+            await service.createActionToken({
+                actionType: forgotPasswordAction,
+                token: forgotePasswordToken,
+                _userId: req.locals.user._id
+            });
+
+            const forgotePassURL = `${FRONTEND_URL}/password/forgot?token=${forgotePasswordToken}`;
+            console.log('URL: ', forgotePassURL);
+
+            await emailService.sendMail('072001rusand@gmail.com', FORGOT_PASSWORD, {forgotePassURL});
+
+            res.send('Ok');
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    setForgotPassword: async (req, res, next) => {
+        try {
+            const { _id: userId } = req.user;
+            const hashPassword = await oauthService.hashPassword(req.body.password);
+
+            await userService.updateUserById(userId, { password: hashPassword });
+            await service.deleteManyByParams({ user: userId}); // log out from all platforms
+
+            res.send('ok');
         } catch (e) {
             next(e);
         }
