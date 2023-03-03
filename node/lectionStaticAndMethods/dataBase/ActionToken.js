@@ -15,4 +15,9 @@ const ActionTokenScheme = new mongoose.Schema({
     toObject: {virtuals: true}
 });
 
+// user pre hooks
+ActionTokenScheme.pre(/^find/, function() {
+    this.populate('_userId');
+});
+
 module.exports = mongoose.model('Action_Token', ActionTokenScheme);

@@ -4,7 +4,7 @@ const ActionToken = require('../../dataBase/ActionToken');
 module.exports = {
     createOauthPair: async (tokenData) => await OAuth.create(tokenData),
     
-    getByParams: async (searchData = {}) => await OAuth.findOne(searchData).populate('_userId'),
+    getByParams: async (searchData = {}) => await OAuth.findOne(searchData),
 
     deleteOneByParams: async (deleteData = {}) => {
         await OAuth.deleteOne(deleteData);

@@ -99,7 +99,7 @@ module.exports = {
             await userService.updateUserById(userId, { password: hashPassword });
             await service.deleteManyByParams({ user: userId}); // log out from all platforms
 
-            res.send('ok');
+            res.send('Ok');
         } catch (e) {
             next(e);
         }

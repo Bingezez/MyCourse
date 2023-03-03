@@ -15,4 +15,16 @@ const OAuthScheme = new mongoose.Schema({
     toObject: {virtuals: true}
 });
 
+OAuthScheme.virtual('testUser', {
+    ref: 'User',
+    localField: '_userId',
+    foreignField: '_id'
+});
+
+// user pre hooks
+OAuthScheme.pre(/^find/, function() {
+    this.populate('_userId');
+    this.populate('testUser');
+});
+
 module.exports = mongoose.model('OAuth', OAuthScheme);

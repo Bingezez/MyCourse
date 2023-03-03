@@ -47,4 +47,21 @@ const UserScheme = new mongoose.Schema({
     }
 });
 
+UserScheme.virtual('fullname').get(function() {
+    return `${this.firstName} ${this.lastName}`.trim();
+});
+
+UserScheme.statics = { // for schema
+    myFirstStatic() {
+        console.log(this);
+    }
+
+};
+
+UserScheme.methods = { // for document
+    myFirstMethod() {
+        console.log(this);
+    }
+};
+
 module.exports = mongoose.model('User', UserScheme);

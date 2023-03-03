@@ -14,14 +14,18 @@ module.exports = {
 
             oauthService.validateTokenDynemically(tokenType, token);
 
-            const tokenWithuser = await service.getByParams({tokenType: token});
+            const tokenWithUser = await service.getByParams({tokenType: token});
 
-            if (!tokenWithuser) {
+            console.log('---------------------------');
+            console.log(tokenWithUser);   
+            console.log('---------------------------');
+
+            if (!tokenWithUser) {
                 throw new UnauthorizedError('Invalid token');
             }
 
-            req.user = tokenWithuser._userId;
-
+            req.user = tokenWithUser._userId;
+            console.log('test');
             next();
         } catch (e) {
             next(e);
@@ -52,5 +56,5 @@ module.exports = {
         } catch (e) {
             next(e);
         }
-    }
+    }   
 };
