@@ -1,4 +1,4 @@
 module.exports = {
-    oauthService: require("./oauth.services"),
-    emailService: require("./email.services"),
+    oauthService: require("./oauth.service"),
+    emailService: require("./email.service"),
 };
