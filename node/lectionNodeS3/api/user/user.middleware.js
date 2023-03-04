@@ -2,6 +2,7 @@ const { userSchema } = require('../user/user.validator');
 const { NotFoundError, BadRequestError } = require('../../errors/apiError');
 
 const userService = require('./user.service');
+const { IMAGE_MAX_SIZE, IMAGE_MIMETYPES } = require('../../configs/file.configs');
 
 module.exports = {
     getUserDynemically: (paramName, from, dbField = paramName) => async (req, res, next) => {
@@ -98,6 +99,28 @@ module.exports = {
 
             if (count) {
                 throw new BadRequestError(problems);
+            }
+
+            next();
+        } catch (e) {
+            next(e);    
+        }
+    },
+
+    checkUserAvatar: async (req, res, next) => {
+        try {
+            if (!req.files?.avatar) {
+                throw new BadRequestError('No file');
+            }
+            
+            const { name, size, mimetype } = req.files.avatar;
+            
+            if (size > IMAGE_MAX_SIZE) {
+                throw new BadRequestError('File ' + name + ' is to big!');
+            }
+            
+            if (!IMAGE_MIMETYPES.includes(mimetype)) {
+                throw new BadRequestError('No valid file type');
             }
 
             next();

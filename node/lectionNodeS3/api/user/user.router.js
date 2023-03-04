@@ -21,6 +21,8 @@ userRouter.get('/:userId', controller.getUserById);
 userRouter.put('/:userId', controller.updateUserById);
 userRouter.delete('/:userId', controller.deleteUserById);
 
+userRouter.post('/:userId/avatar', middleware.checkUserAvatar, controller.uploadUserAvatar);
+
 module.exports = {
     userRouter
 };

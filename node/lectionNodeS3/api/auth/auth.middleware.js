@@ -1,7 +1,7 @@
 const { UnauthorizedError, BadRequestError } = require("../../errors/apiError");
 
 const service = require("./auth.service");
-const oauthService = require("../../services/oauth.services");
+const oauthService = require("../../services/oauth.service");
 
 module.exports = {    
     validateDynemicallyToken: (tokenType) => async (req, res, next) => {
@@ -15,10 +15,6 @@ module.exports = {
             oauthService.validateTokenDynemically(tokenType, token);
 
             const tokenWithUser = await service.getByParams({tokenType: token});
-
-            console.log('---------------------------');
-            console.log(tokenWithUser);   
-            console.log('---------------------------');
 
             if (!tokenWithUser) {
                 throw new UnauthorizedError('Invalid token');

@@ -2,6 +2,7 @@
 const path = require('node:path');
 const express = require('express');
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload');
 
 const code = require('./errors/error.codes');
 
@@ -16,6 +17,10 @@ const { PORT, URL } = require('./configs/variables');
 
 
 const app = express();
+
+app.use(fileUpload({
+    limits: {fieldSize: 50 * 1024 * 1024},
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

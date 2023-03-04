@@ -1,4 +1,4 @@
-const { emailService } = require('../../services');
+const { emailService, fileService } = require('../../services');
 const { WELCOME } = require('../../configs/emailTypes.enum');
 const { CREATED, NO_CONTENT } = require('../../errors/error.codes');
 
@@ -66,6 +66,19 @@ module.exports = {
             await service.deleteUserById(req.params.userId);
 
             res.status(NO_CONTENT).send('User is delete!');
+        } catch (e) {
+            next(e);
+        }
+    },
+
+    uploadUserAvatar: async (req, res, next) => {
+        try {
+            const data = await fileService.uploadFileToS3(
+                req.files.avatar,
+                req.params.userId,
+                'user'
+            );
+            res.json(data);            
         } catch (e) {
             next(e);
         }
