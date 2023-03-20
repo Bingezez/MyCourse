@@ -21,7 +21,6 @@ module.exports = {
             }
 
             req.user = tokenWithUser._userId;
-            console.log('test');
             next();
         } catch (e) {
             next(e);

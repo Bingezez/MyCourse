@@ -19,6 +19,8 @@ const UserScheme = new mongoose.Schema({
         type: Number
     }, password: {
         type: String, min: 8, required: true, default: ""
+    }, avatar: {
+        type: String, default: ""
     }, role: {
         type: String, enum: Object.values(rolesEnum), default: rolesEnum.USER
     }
