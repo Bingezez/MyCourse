@@ -43,7 +43,7 @@ module.exports = {
 
     createUser: async (req, res, next) => {
         try {
-            await userService.createUser(req.body);
+            await service.createUser(req.body);
 
             res.status(CREATED).send('User is create!');
         } catch (e) {
@@ -79,7 +79,7 @@ module.exports = {
                 'user'
             );
 
-            await userService.updateUserById(req.params.userId, { avatar : url });
+            await service.updateUserById(req.params.userId, { avatar : url });
 
             res.json({ url });            
         } catch (e) {
